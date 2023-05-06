@@ -18,6 +18,9 @@ corona.Tests  = corona.groupby("Entity").Tests.transform(lambda x: x.fillna(x.me
 #Drop longitude and latitude
 corona.drop(columns=["Longitude","Latitude"],inplace=True)
 
+#export csv
+
+corona.to_csv("Data/alteredData.csv",index=False)
 
 #Calculate pairwise correlation of data
 corr = corona.corr().round(2)
