@@ -17,7 +17,6 @@ corona = pd.read_csv("Data/alteredData.csv")
 
 #Clustering 
 data = corona
-#!! maybe scale the data? !!
 data = data.groupby('Entity').max()
 data['Deaths/Cases'] = data['Deaths']/data['Cases']
 data['Cases/Population'] = data['Cases']/data['Population']
@@ -26,11 +25,11 @@ result1 = result2 = result3 =  data
 
 #Deaths/Cases based Clustering
 print('Deaths/Cases Clustering')
-clustering(['Deaths/Cases'], 5, result1)
+clustering(['Deaths', 'Cases'], 5, result1)
 
 #Cases/Population based Clustering
 print('Cases/Population Clustering')
-clustering(['Cases/Population'], 5, result2)
+clustering(['Cases', 'Population'], 5, result2)
 
 #Deaths/Cases and Cases/Population based Clustering
 print('Deaths/Cases', 'Cases/Population Clustering')
