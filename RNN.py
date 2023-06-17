@@ -7,7 +7,7 @@ from tensorflow.keras.layers import LSTM
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error
 
-corona = pd.read_csv("Data/data.csv")
+corona = pd.read_csv("Data/alteredData.csv")
 
 #Rename
 corona.rename(columns={"Daily tests": "Tests"}, inplace=True)
@@ -20,9 +20,7 @@ covidGR = covidGR.iloc[0:idx+1]
 
 #Get only Tests and Cases
 covidGR = covidGR[["Tests","Cases"]]
-#Fill NaN values
-covidGR.Cases  = corona.groupby("Entity").Cases.transform(lambda x: x.fillna(0))
-covidGR.Tests  = corona.groupby("Entity").Tests.transform(lambda x: x.fillna(0))
+
 #We want to have the daily cases for each day not all the cases till that day
 #We will find the daily cases for each day, by substracting from the number of cases untill the specific date,
 #the number of cases untill the previous day
