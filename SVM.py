@@ -25,7 +25,7 @@ X = list()
 Y = list()
 
 #Rounding the data
-coronaGR = coronaGR.round(2)
+coronaGR = coronaGR.round(3)
 coronaPososto = coronaGR.loc[:, 'Pososto']
 
 #Getting data for the target day (Y) and its three previous days (X)
@@ -38,7 +38,7 @@ X = np.reshape(X, [-1,3])
 Y = np.reshape(Y, [-1,1])
 
 #Splitting the data into training and test groups
-X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.2)
+X_train, X_test, y_train, y_test = train_test_split(X.round(3), Y.round(3), test_size=0.2)
 
 #Training the model with the train data and with different kernels each time
 lin = svm.SVR(kernel='linear', C=1000.0)
@@ -51,7 +51,7 @@ rbf = svm.SVR(kernel='rbf', C=1000.0, gamma=0.15)
 rbf.fit(X_train, y_train.ravel())
 
 #Our data for the prediction
-predict_data = np.array([[0.03, 0.03, 0.02]])
+predict_data = np.array([[0.027, 0.029, 0.021]])
 
 #Calculating the R2 Score for the different kernels
 rbf_r2 = r2_score(y_test, rbf.predict(X_test))
@@ -66,10 +66,10 @@ poly_mse = mean_squared_error(y_test, poly.predict(X_test))
 #Printing the predictions and the scores for each kernel
 
 print('RBF:')
-print(f'Prediction: {rbf.predict(predict_data)}\nR2 Score: {rbf_r2}\nMSE Score: {rbf_mse}\n')
+print(f'Prediction: {rbf.predict(predict_data).round(3)}\nR2 Score: {rbf_r2}\nMSE Score: {rbf_mse}\n')
 
 print('Linear:')
-print(f'Prediction: {lin.predict(predict_data)}\nR2 Score: {lin_r2}\nMSE Score: {lin_mse}\n')
+print(f'Prediction: {lin.predict(predict_data).round(3)}\nR2 Score: {lin_r2}\nMSE Score: {lin_mse}\n')
 
 print('Polynomial:')
-print(f'Prediction: {poly.predict(predict_data)}\nR2 Score: {poly_r2}\nMSE Score: {poly_mse}')
+print(f'Prediction: {poly.predict(predict_data).round(3)}\nR2 Score: {poly_r2}\nMSE Score: {poly_mse}')
