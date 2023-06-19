@@ -11,10 +11,13 @@ corona.rename(columns={"Daily tests": "Tests"}, inplace=True)
 
 #Fill NaN values
 #print(corona.isnull().sum().sort_values(ascending=False))
-corona.Deaths = corona.groupby("Entity").Deaths.transform(lambda x: x.fillna(x.mean()))
-corona.Cases  = corona.groupby("Entity").Cases.transform(lambda x: x.fillna(x.mean()))
-corona.Tests  = corona.groupby("Entity").Tests.transform(lambda x: x.fillna(x.mean()))
+corona.Deaths = corona.groupby("Entity").Deaths.transform(lambda x: x.fillna(method='bfill'))
+corona.Cases  = corona.groupby("Entity").Cases.transform(lambda x: x.fillna(method='bfill'))
+corona.Tests  = corona.groupby("Entity").Tests.transform(lambda x: x.fillna(method='bfill'))
 
+corona.Deaths = corona.groupby("Entity").Deaths.transform(lambda x: x.fillna(method='ffill'))
+corona.Cases  = corona.groupby("Entity").Cases.transform(lambda x: x.fillna(method='ffill'))
+corona.Tests  = corona.groupby("Entity").Tests.transform(lambda x: x.fillna(method='ffill'))
 #Drop longitude and latitude
 corona.drop(columns=["Longitude","Latitude"],inplace=True)
 
