@@ -74,4 +74,3 @@ test_data = test_data.reshape((1, 3, 1))
 
 print(test_data)
 print(model.predict(test_data))
-
